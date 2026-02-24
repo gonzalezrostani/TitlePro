@@ -249,7 +249,7 @@ for t in st.session_state.turns:
 if st.session_state.rounds_done < 3:
     with st.form("chat_form", clear_on_submit=True):
         placeholder = (
-            "Paste the article/text here."
+            "Paste the text you want to turn into a title."
             if st.session_state.rounds_done == 0
             else "Describe the edits you want."
         )
