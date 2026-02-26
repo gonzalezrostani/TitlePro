@@ -1,0 +1,22 @@
+name: Keep Alive - TitlePro
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every 60 minutes
+  workflow_dispatch:       # Allows manual trigger from GitHub UI
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping TitlePro Streamlit App
+        run: |
+          echo "🕐 Pinging https://titlepro.streamlit.app/ at $(date -u)"
+          response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://titlepro.streamlit.app/)
+          echo "Response status: $response"
+          if [ "$response" = "200" ]; then
+            echo "✅ App is alive and responding!"
+          else
+            echo "⚠️ Unexpected status code: $response"
+          fi
